@@ -1,5 +1,5 @@
-import { Controller, Get, Query } from "@nestjs/common";
-import { PostsService } from "./posts.service";
+import { Controller, Get, Query, Post, Body } from "@nestjs/common"
+import { PostsService } from "./posts.service"
 
 @Controller('posts')
 export class PostsController {
@@ -11,10 +11,11 @@ export class PostsController {
         @Query('id') id?: string,
         @Query('author') authorId?: string
     ) {
-        return this.postsService.findPosts(
-            isNaN(+page) ? undefined : +page,
-            isNaN(+id) ? undefined : +id,
-            isNaN(+authorId) ? undefined : +authorId,
-        )
+        return this.postsService.findPosts(page, id, authorId)
+    }
+    @Post('/create')
+    createPost(@Body() body: any) {
+        const { textBody } = body
+        return this.postsService.createPost(textBody)
     }
 }
