@@ -1,17 +1,8 @@
-import { Client } from 'pg'
+import {client} from '../../main'
 import { Post } from 'PostTypes'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
-
-export const client = new Client({
-    user: process.env.DATABASE_USER,
-    host: process.env.DATABASE_HOST,
-    database: process.env.DATABASE_NAME,
-    password: process.env.DATABASE_PASSWORD,
-    port: process.env.DATABASE_PORT
-})
-client.connect()
 
 const databaseQueryRequestHandler = async <T>(query: string, params: any[]): Promise<T[]> => {
     try {
