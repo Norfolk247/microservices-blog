@@ -4,14 +4,14 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-const databaseQueryRequestHandler = async <T>(query: string, params: any[]): Promise<T[]> => {
+/*const databaseQueryRequestHandler = async <T>(query: string, params: any[]): Promise<T[]> => {
     try {
         return await client.query(query, params).then(res => res.rows)
     } catch (error) {
         console.error(error)
         throw error
     }
-}
+}*/
 
 export const getPosts = async (from = 1, to = 10, id?: number, authorId?: number): Promise<Post[]> => {
     try {
@@ -33,3 +33,7 @@ export const getPosts = async (from = 1, to = 10, id?: number, authorId?: number
         throw error
     }
 }
+export const createPost = (body: string,authorId: number): Promise<number> => client.query(
+    'INSERT INTO posts(body, author_id) VALUES($1, $2) RETURNING id',
+    [body,authorId]
+).then(res=>res.rows[0])
