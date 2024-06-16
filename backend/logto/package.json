@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "dev":"tsc && node index.js"
+    "dev":"tsc --watch && node index.js"
   },
   "keywords": [],
   "author": "",
