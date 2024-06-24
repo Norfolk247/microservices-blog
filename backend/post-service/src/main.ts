@@ -8,8 +8,8 @@ export const client = new Client({
     host: process.env.DATABASE_HOST,
     database: process.env.DATABASE_NAME,
     password: process.env.DATABASE_PASSWORD,
-    //@ts-expect-error
-    port: +process.env.DATABASE_PORT
+    // @ts-expect-error port is number
+    port: process.env.DATABASE_PORT
 })
 
 async function bootstrap() {
