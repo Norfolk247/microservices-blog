@@ -1,8 +1,5 @@
 import {client} from '../../main'
 import { Post } from 'PostTypes'
-import * as dotenv from 'dotenv'
-
-dotenv.config()
 
 /*const databaseQueryRequestHandler = async <T>(query: string, params: any[]): Promise<T[]> => {
     try {
