@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { createPost, getPosts } from './databaseQueries/postsTableQueries'
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common'
+import {createPost, getPosts} from './postsTableQueries'
 
 @Injectable()
 export class PostsService {
@@ -14,9 +14,10 @@ export class PostsService {
             authorId
         )
     }
-    createPost(body: any) {
+
+    createPost(body: any, authorName: string) {
         if (typeof body != 'string' || body === '') throw new HttpException('Wrong text body argument', HttpStatus.BAD_REQUEST)
 
-        return createPost(body,1)
+        return createPost(body, 1)
     }
 }
