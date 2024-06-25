@@ -1,6 +1,9 @@
-import { Client } from 'pg'
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import * as dotenv from 'dotenv'
+import {Client} from 'pg'
+import {NestFactory} from '@nestjs/core';
+import {AppModule} from './app.module';
+
+dotenv.config()
 
 // init postgresql config
 export const client = new Client({
