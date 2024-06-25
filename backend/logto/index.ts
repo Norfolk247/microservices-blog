@@ -30,5 +30,5 @@ app.get('/', withLogto({...config,getAccessToken: true}),(req, res) => {
     }
     res.json(req.user)
 })
-app.get('/verify',tokenVerify)
+app.post('/verify',tokenVerify)
 app.listen(3000)
