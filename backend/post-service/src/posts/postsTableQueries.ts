@@ -1,4 +1,4 @@
-import {client} from '../../main'
+import {client} from '../main'
 import { Post } from 'PostTypes'
 
 /*const databaseQueryRequestHandler = async <T>(query: string, params: any[]): Promise<T[]> => {
