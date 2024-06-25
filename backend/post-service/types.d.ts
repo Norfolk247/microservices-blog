@@ -12,7 +12,7 @@ declare module 'LogtoServiceTypes' {
         name: string|null,
         picture: unknown,
         updated_at: number,
-        username: string|null,
+        username: string,
         created_at: number
     }
     export type LogtoError = {
