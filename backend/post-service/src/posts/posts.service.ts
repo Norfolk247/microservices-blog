@@ -14,10 +14,9 @@ export class PostsService {
             authorId
         )
     }
-    createPost(body: any, authorId?: string) {
+    createPost(body: any) {
         if (typeof body != 'string' || body === '') throw new HttpException('Wrong text body argument', HttpStatus.BAD_REQUEST)
-        // undef, nan, '0'
-        if (!authorId || !+authorId) throw new HttpException('Wrong authorId argument', HttpStatus.BAD_REQUEST)
-        return createPost(body, +authorId)
+
+        return createPost(body,1)
     }
 }
