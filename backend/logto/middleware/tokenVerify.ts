@@ -27,5 +27,5 @@ export const tokenVerify = async (req: Request, res: Response, next: NextFunctio
     const {status,data} = await axios.post(`${process.env.LOGTOENDPOINT}/oidc/me`,{},options)
         .then(({status,data}:{status: number,data: LogtoUser})=>({status, data}))
         .catch(({response: {status,data}}: {response: {status: number,data: LogtoError}})=>({status,data}))
-    res.status(status).send(data)
+    res.status(status).json(data)
 }
