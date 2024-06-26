@@ -1,17 +1,20 @@
-import { Module, OnApplicationShutdown } from "@nestjs/common";
-import { PostsService } from "./posts/posts.service";
-import { PostsController } from "./posts/posts.controller";
-import { client } from './main';
-import {HttpModule} from "@nestjs/axios";
-import { UsersService } from './users/users.service';
+import { Module } from '@nestjs/common'
+import { PostsService } from './posts/posts.service'
+import { PostsController } from './posts/posts.controller'
+import { HttpModule } from '@nestjs/axios'
+import { PostgresModule } from 'nest-postgres'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 @Module({
-    imports: [HttpModule],
+    imports: [
+        HttpModule,
+        PostgresModule.forRoot({
+            connectionString: process.env.DATABASE_CONNECTIONSTRING,
+        }),
+    ],
     controllers: [PostsController],
-    providers: [PostsService, UsersService]
+    providers: [PostsService],
 })
-export class AppModule implements OnApplicationShutdown {
-    onApplicationShutdown(signal?: string) {
-        client.end();
-    }
-}
+export class AppModule {}

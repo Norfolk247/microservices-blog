@@ -2,7 +2,7 @@ declare module 'PostTypes' {
     export type Post = {
         id: number,
         body: string,
-        author_id: number,
+        author_id: string,
         create_date: Date
     }
 }
