@@ -1,6 +1,6 @@
 import {Controller, Get, Query, Post, Body} from "@nestjs/common"
 import { PostsService } from "./posts.service"
-import {User} from "../tokens/tokens.decorator";
+import {User} from "../custom decorators/user.decorator";
 import {LogtoUser} from "LogtoServiceTypes";
 
 @Controller('posts')
