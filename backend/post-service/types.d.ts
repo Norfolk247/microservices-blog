@@ -10,7 +10,7 @@ declare module 'LogtoServiceTypes' {
     export type LogtoUser = {
         sub: string,
         name: string|null,
-        picture: unknown,
+        picture: unknown|null,
         updated_at: number,
         username: string,
         created_at: number
