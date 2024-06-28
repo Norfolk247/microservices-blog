@@ -3,6 +3,17 @@ import {InjectClient} from "nest-postgres";
 import {Client} from "pg";
 import {Post} from "PostTypes";
 
+const checkForIdAndAuthorId = async (client: Client, id?: string, author_id?: string) => {
+    // @ts-expect-error +undefined == NaN == false
+    if (isNaN(+id) || isNaN(+author_id)) throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
+    const result = await client.query(
+        'SELECT author_id FROM posts WHERE id = $1',
+        [id]
+    )
+    if (!result.rowCount) throw new HttpException('Not found', HttpStatus.NOT_FOUND)
+    return result
+}
+
 @Injectable()
 export class PostsService {
     constructor(@InjectClient() private readonly client: Client) {
@@ -32,7 +43,6 @@ export class PostsService {
         return result.rows
     }
     async createPost(body: any, author_id: string): Promise<number> {
-        if (typeof body != 'string' || body === '') throw new HttpException('Wrong text body argument', HttpStatus.BAD_REQUEST)
         const result = await this.client.query(
             'INSERT INTO posts(body, author_id) VALUES($1, $2) RETURNING id',
             [body,author_id]
@@ -40,21 +50,22 @@ export class PostsService {
         return result.rows[0]
     }
     async deletePost(id?: string, author_id?: string): Promise<number> {
-        // @ts-expect-error +undefined == NaN == false
-        if (isNaN(+id) || isNaN(+author_id)) throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
-        let result = await this.client.query(
-            'SELECT author_id FROM posts WHERE id = $1',
-            [id]
-        )
-        if (!result.rowCount) throw new HttpException('Not found', HttpStatus.NOT_FOUND)
-        result = await this.client.query(
+        await checkForIdAndAuthorId(this.client,id,author_id)
+        const result = await this.client.query(
             'DELETE FROM posts WHERE id = $1 AND author_id = $2 RETURNING id',
             [id, author_id]
         )
         if (!result.rowCount) throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
         return result.rows[0]
     }
-    async editPost(id?: string, body?: any, author_id?: string): Promise<Post> {
-        return {id: 1,body: '1',author_id: '1', create_date: new Date()}
+    async editPost(body?: any, id?: string, author_id?: string): Promise<Post> {
+        if (typeof body != 'string' || body === '') throw new HttpException('Wrong text body argument', HttpStatus.BAD_REQUEST)
+        await checkForIdAndAuthorId(this.client,id,author_id)
+        const result = await this.client.query(
+            'UPDATE posts SET body = $1 WHERE id = $2 AND author_id = $3 RETURNING *',
+            [body, id, author_id]
+        )
+        if (!result.rowCount) throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+        return result.rows[0]
     }
 }
