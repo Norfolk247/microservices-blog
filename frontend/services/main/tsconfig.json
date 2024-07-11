@@ -9,7 +9,8 @@
     "target": "es5",
     "sourceMap": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   },
   "allowJs": true,
   "skipLibCheck": true,

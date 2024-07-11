@@ -7,16 +7,16 @@ export const buildConfig = (
     entryPath: string,
     outputPath: string,
     templatePath: string,
-    mode: 'production'|'development'
+    mode: 'production' | 'development'
 ): WebpackConfiguration => {
     return {
         mode,
-        entry: entryPath,
-        output: {
+        entry: mode == 'production' ? entryPath : undefined,
+        output: mode == 'production' ? {
             filename: '[name].[contenthash].js',
             path: outputPath,
             clean: true
-        },
+        } : undefined,
         resolve: {
             extensions: ['.ts', '.tsx', '.js']
         },
@@ -24,7 +24,7 @@ export const buildConfig = (
             rules: buildRules()
         },
         plugins: buildPlugins(templatePath),
-        devtool: mode == 'development' ? 'inline-source-map': undefined,
+        devtool: mode == 'development' ? 'inline-source-map' : undefined,
         devServer: mode == 'development' ? buildDevServer() : undefined,
         performance: {
             hints: mode == 'production' ? 'warning' : false
