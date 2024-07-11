@@ -1,0 +1,24 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "scripts": {
+    "dev": "webpack serve --env mode=development",
+    "prod": "webpack --env mode=production"
+  },
+  "devDependencies": {
+    "@packages/build-config": "*",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^4.9.5"
+  }
+}
