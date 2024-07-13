@@ -1,7 +1,7 @@
 {
   "name": "main",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.tsx",
   "keywords": [],
   "scripts": {
     "dev": "webpack serve --env mode=development",
@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@packages/build-config": "*",
+    "@packages/shared": "*",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
