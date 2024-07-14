@@ -26,6 +26,14 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## ENV variables
+
+```env
+TOKEN_VERIFICATION=<http://host:port/verify>
+DATABASE_CONNECTIONSTRING=<database://user:password@host:port/databasename>
+BASEPORT=<app port>
+```
+
 ## Installation
 
 ```bash

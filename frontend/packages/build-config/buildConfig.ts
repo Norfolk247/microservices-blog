@@ -3,18 +3,21 @@ import {buildDevServer} from "./buildDevServer";
 import {buildRules} from "./buildRules";
 import {buildPlugins} from "./buildPlugins";
 
-export const buildConfig = (
+type buildConfigOptions = {
     entryPath: string,
+    port: string|number,
     outputPath: string,
     templatePath: string,
     mode: 'production' | 'development'
-): WebpackConfiguration => {
+}
+
+export const buildConfig = (options: buildConfigOptions): WebpackConfiguration => {
     return {
-        mode,
-        entry: mode == 'production' ? entryPath : undefined,
-        output: mode == 'production' ? {
+        mode: options.mode,
+        entry: options.mode == 'production' ? options.entryPath : undefined,
+        output: options.mode == 'production' ? {
             filename: '[name].[contenthash].js',
-            path: outputPath,
+            path: options.outputPath,
             clean: true
         } : undefined,
         resolve: {
@@ -23,11 +26,11 @@ export const buildConfig = (
         module: {
             rules: buildRules()
         },
-        plugins: buildPlugins(templatePath),
-        devtool: mode == 'development' ? 'inline-source-map' : undefined,
-        devServer: mode == 'development' ? buildDevServer() : undefined,
+        plugins: buildPlugins(options.templatePath),
+        devtool: options.mode == 'development' ? 'inline-source-map' : undefined,
+        devServer: options.mode == 'development' ? buildDevServer(options.port) : undefined,
         performance: {
-            hints: mode == 'production' ? 'warning' : false
+            hints: options.mode == 'production' ? 'warning' : false
         }
     }
 }

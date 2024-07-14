@@ -1,10 +1,10 @@
 {
-  "name": "main",
+  "name": "posts",
   "version": "1.0.0",
   "keywords": [],
   "scripts": {
-    "dev": "webpack serve --env mode=development --env POST_REMOTE_URL=http://localhost:3001",
-    "prod": "webpack --env mode=production --env POST_REMOTE_URL=http://localhost:3001"
+    "dev": "webpack serve --env mode=development",
+    "prod": "webpack --env mode=production"
   },
   "devDependencies": {
     "@packages/build-config": "*",

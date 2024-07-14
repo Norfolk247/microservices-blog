@@ -5,13 +5,13 @@
       "dom.iterable",
       "esnext"
     ],
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
     "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
+    "esModuleInterop": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "resolveJsonModule": true,
     "skipLibCheck": true
   }
 }

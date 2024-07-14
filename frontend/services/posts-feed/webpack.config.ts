@@ -1,27 +1,25 @@
-import {buildConfig} from "@packages/build-config"
-import * as path from "path"
-import * as webpack from 'webpack'
-import packageJson from "./package.json"
+import {buildConfig} from "@packages/build-config";
+import * as path from "path";
+import * as webpack from "webpack"
+import packageJson from './package.json'
 
 type EnvVariables = {
-    mode: 'production' | 'development',
-    POST_REMOTE_URL?: string
+    mode: 'production'|'development'
 }
 
 export default (env: EnvVariables) => {
-    const POST_REMOTE_URL = env.POST_REMOTE_URL ?? 'http://localhost:3000'
     const config = buildConfig({
         entryPath: '/src/bootstrap.tsx',
-        port: 3000,
+        port: 3001,
         outputPath: path.resolve(__dirname, 'dist'),
-        templatePath: path.resolve(__dirname, 'public/index.html'),
+        templatePath: path.resolve(__dirname,'public/index.html'),
         mode: env.mode
     })
     config.plugins.push(new webpack.container.ModuleFederationPlugin({
-        name: 'main',
-        filename: 'remoteEntry',
-        remotes: {
-            posts: `posts@${POST_REMOTE_URL}/remoteEntry.js`
+        name: 'posts',
+        filename: 'remoteEntry.js',
+        exposes: {
+            './Routes': './src/bootstrap.tsx'
         },
         shared: {
             ...packageJson.dependencies,
