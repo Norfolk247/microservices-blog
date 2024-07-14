@@ -17,6 +17,6 @@ export const buildRules = (): ModuleOptions['rules'] => {
     }
     return [
         swcLoader,
-        cssLoader
+        cssLoader,
     ]
 }

@@ -1,8 +1,8 @@
 import type {Configuration} from 'webpack-dev-server'
 
-export const buildDevServer = (): Configuration => {
+export const buildDevServer = (port: string|number): Configuration => {
     return {
-        port: 3000,
+        port,
         open: true,
         historyApiFallback: true
     }
