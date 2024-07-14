@@ -2,18 +2,18 @@ import {LogtoExpressConfig, handleAuthRoutes, withLogto} from '@logto/express'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import express from 'express'
-import cors from 'cors'
 import dotenv from 'dotenv'
 import {tokenVerify} from "./middleware/tokenVerify"
-import {handleErrors} from "./middleware/handleErrors"
 
 dotenv.config()
+
+const port = process.env.BASEPORT
 
 const config: LogtoExpressConfig = {
     endpoint: process.env.LOGTOENDPOINT || '',
     appId: process.env.APPID || '',
     appSecret: process.env.APPSECRET || '',
-    baseUrl: process.env.BASEURL || '', // Change to your own base URL
+    baseUrl: `${process.env.BASEURL}:${port}` || 'http://localhost:3000', // Change to your own base URL
 }
 const app = express()
 
@@ -35,7 +35,7 @@ app.get('/', withLogto({...config, getAccessToken: true}), (req, res) => {
 })
 app.post('/verify', tokenVerify)
 
-app.listen(3002, () => console.log('logto service up'))
+app.listen(port, () => console.log('logto service up'))
 
 process.on('uncaughtException', (err) => {
     console.error(err);
