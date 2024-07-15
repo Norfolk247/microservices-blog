@@ -4,7 +4,16 @@ import {AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, B
 import MenuIcon from '@mui/icons-material/Menu'
 import {useEffect, useState} from "react"
 
-const pages = ['Blog', 'Service2']
+const pages = [
+    {
+        name: 'News',
+        path: 'posts'
+    },
+    {
+        name: 'Service 2',
+        path: 'service2'
+    }
+]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 const MyAppBar: React.FC = () => {
@@ -65,23 +74,25 @@ const MyAppBar: React.FC = () => {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            {pages.map(({name,path}) => (
+                                <MenuItem component={Link} to={path} key={path} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">
+                                        {name}
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {pages.map((page) => (
+                        {pages.map(({name,path}) => (
                             <Button
-                                key={page}
+                                key={path}
                                 component={Link}
-                                to={page}
+                                to={path}
                                 onClick={handleCloseNavMenu}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
-                                {page}
+                                {name}
                             </Button>
                         ))}
                     </Box>

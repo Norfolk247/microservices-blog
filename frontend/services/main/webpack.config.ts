@@ -10,6 +10,7 @@ type EnvVariables = {
 
 export default (env: EnvVariables) => {
     const POST_REMOTE_URL = env.POST_REMOTE_URL ?? 'http://localhost:3000'
+
     const config = buildConfig({
         entryPath: '/src/bootstrap.tsx',
         port: 3000,
@@ -17,9 +18,10 @@ export default (env: EnvVariables) => {
         templatePath: path.resolve(__dirname, 'public/index.html'),
         mode: env.mode
     })
+
     config.plugins.push(new webpack.container.ModuleFederationPlugin({
         name: 'main',
-        filename: 'remoteEntry',
+        filename: 'remoteEntry.js',
         remotes: {
             posts: `posts@${POST_REMOTE_URL}/remoteEntry.js`
         },
@@ -39,5 +41,6 @@ export default (env: EnvVariables) => {
             }
         }
     }))
+
     return config
 }

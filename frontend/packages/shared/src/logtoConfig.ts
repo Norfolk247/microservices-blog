@@ -1,10 +1,6 @@
-import {LogtoNextConfig} from "@logto/next"
+import {LogtoConfig} from '@logto/react'
 
-export const logtoConfig: LogtoNextConfig = {
+export const logtoConfig: LogtoConfig = {
     appId: process.env.APPID,
-    appSecret: process.env.APPSECRET,
-    endpoint: process.env.LOGTOENDPOINT,
-    baseUrl: process.env.BASEURL,
-    cookieSecret: process.env.COOKIESECRET,
-    cookieSecure: true
+    endpoint: process.env.LOGTOENDPOINT
 }
