@@ -1,15 +1,16 @@
-import React from 'react';
-import {Link, Outlet} from "react-router-dom";
+import React from 'react'
+import {Link, Outlet} from "react-router-dom"
 import {MyAppBar} from "@packages/shared"
+import MyLogtoProvider from "@packages/shared/src/components/MyLogtoProvider"
 
 const App: React.FC = () => {
     return (
-        <div>
+        <MyLogtoProvider>
             <MyAppBar/>
             host
             <Outlet/>
-        </div>
-    );
-};
+        </MyLogtoProvider>
+    )
+}
 
-export default App;
+export default App

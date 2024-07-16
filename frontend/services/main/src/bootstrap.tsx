@@ -1,7 +1,7 @@
 import React from 'react'
-import App from './App';
+import App from './App'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import {createRoot} from "react-dom/client";
+import {createRoot} from "react-dom/client"
 // @ts-ignore
 import {routes as postsRoutes} from 'posts/Routes'
 
