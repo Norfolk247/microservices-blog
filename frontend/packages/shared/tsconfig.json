@@ -5,25 +5,13 @@
       "dom.iterable",
       "esnext"
     ],
-    "module": "commonjs",
+    "module": "CommonJS",
     "target": "es5",
     "sourceMap": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
-  "allowJs": true,
-  "skipLibCheck": true,
-  "esModuleInterop": true,
-  "allowSyntheticDefaultImports": true,
-  "strict": true,
-  "forceConsistentCasingInFileNames": true,
-  "noFallthroughCasesInSwitch": true,
-  "module": "esnext",
-  "moduleResolution": "node",
-  "resolveJsonModule": true,
-  "isolatedModules": true,
-  "noEmit": true,
   "include": [
     "src"
   ]

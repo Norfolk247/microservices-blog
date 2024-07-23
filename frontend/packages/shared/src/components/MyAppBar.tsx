@@ -2,7 +2,8 @@ import * as React from 'react'
 import {Link} from 'react-router-dom'
 import {AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, MenuItem} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import {useEffect, useState} from "react"
+import {useState} from "react"
+import {useLogto} from "@logto/react"
 
 const pages = [
     {
@@ -14,14 +15,11 @@ const pages = [
         path: 'service2'
     }
 ]
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+const signInCallbackURL = `http://localhost:3000/callback`
+const signOutRedirectURL = 'http://localhost:3000'
 
 const MyAppBar: React.FC = () => {
-    const [isAuth, setIsAuth] = useState<boolean>(false)
-
-    useEffect(() => {
-
-    }, [])
+    const { signIn, signOut, isAuthenticated } = useLogto()
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -37,9 +35,6 @@ const MyAppBar: React.FC = () => {
     }
     const handleCloseUserMenu = () => {
         setAnchorElUser(null)
-    }
-    const handleLogin = () => {
-
     }
     return (
         <AppBar position="static">
@@ -96,7 +91,7 @@ const MyAppBar: React.FC = () => {
                             </Button>
                         ))}
                     </Box>
-                    {isAuth ?
+                    {isAuthenticated ?
                         <Box sx={{flexGrow: 0}}>
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
@@ -117,17 +112,18 @@ const MyAppBar: React.FC = () => {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">Profile</Typography>
+                                </MenuItem>
+                                <MenuItem onClick={()=>signOut(signOutRedirectURL)}>
+                                    <Typography textAlign="center">Sign Out</Typography>
+                                </MenuItem>
                             </Menu>
                         </Box>
                         :
                         <Box sx={{flexGrow: 0}}>
                             <Button
-                                onClick={handleLogin}
+                                onClick={()=>signIn(signInCallbackURL)}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
                                 LOGIN
