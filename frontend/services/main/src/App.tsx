@@ -7,7 +7,7 @@ const App: React.FC = () => {
     return (
         <>
             <MyAppBar/>
-            <Box display="flex" justifyContent="center" alignItems="center" minHeight="83vh">
+            <Box display="flex" minHeight="83vh">
                 <Outlet/>
             </Box>
         </>
