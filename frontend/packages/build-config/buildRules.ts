@@ -4,8 +4,22 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 export const buildRules = (): ModuleOptions['rules'] => {
     const swcLoader: RuleSetRule = {
         test: /\.(ts|tsx)$/,
-        use: 'swc-loader',
-        exclude: /node_modules/
+        use: [
+            {
+                loader: 'swc-loader',
+                options: {
+                    jsc: {
+                        transform: {
+                            react: {
+                                development: true,
+                                refresh: true
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        exclude: /node_modules/,
     }
     const cssLoader: RuleSetRule = {
         test: /\.css$/i,
