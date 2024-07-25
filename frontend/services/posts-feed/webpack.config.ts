@@ -1,10 +1,10 @@
-import {buildConfig} from "@packages/build-config";
-import * as path from "path";
-import * as webpack from "webpack"
+import {buildConfig} from '@packages/build-config'
+import * as path from 'path'
+import * as webpack from 'webpack'
 import packageJson from './package.json'
 
 type EnvVariables = {
-    mode: 'production'|'development'
+    mode: 'production' | 'development'
 }
 
 export default (env: EnvVariables) => {
@@ -12,9 +12,10 @@ export default (env: EnvVariables) => {
         entryPath: '/src/bootstrap.tsx',
         port: 3001,
         outputPath: path.resolve(__dirname, 'dist'),
-        templatePath: path.resolve(__dirname,'public/index.html'),
+        templatePath: path.resolve(__dirname, 'public/index.html'),
         mode: env.mode
     })
+
     config.plugins.push(new webpack.container.ModuleFederationPlugin({
         name: 'posts',
         filename: 'remoteEntry.js',
@@ -37,5 +38,10 @@ export default (env: EnvVariables) => {
             }
         }
     }))
+
+    /*config.resolve.alias = {
+        '@effector': path.resolve(__dirname, 'src', 'effector')
+    }*/
+
     return config
 }
